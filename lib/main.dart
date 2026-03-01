@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // MaterialApp provides the necessary Directionality widget.
     return const MaterialApp(home: Homescreen());
   }
 }

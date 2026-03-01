@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
 
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +38,7 @@ class Homescreen extends StatelessWidget {
               child: Row(
                 children: [
                   _buildChip("All", isSelected: true),
-                  const SizedBox(width: 8), // Space between chips
+                  const SizedBox(width: 8),
                   _buildChip("Work"),
                   const SizedBox(width: 8),
                   _buildChip("Personal"),
@@ -57,9 +63,11 @@ class Homescreen extends StatelessWidget {
       label: Text(label),
       selected: isSelected,
       onSelected: (bool selected) {
-        // Handle selection here
+        setState(() {
+          isSelected = selected;
+        });
       },
-      // Customize colors to match your purple theme
+
       selectedColor: const Color(0xFF6B4EFF),
       labelStyle: TextStyle(
         color: isSelected ? Colors.white : Colors.black,
@@ -83,9 +91,21 @@ class Homescreen extends StatelessWidget {
       builder: (context) {
         return AlertDialog(
           title: Text("Add New Task"),
-          content: TextField(
-            decoration: InputDecoration(hintText: "Enter task title"),
+          content: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(hintText: "Enter task title"),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                decoration: InputDecoration(hintText: "Enter task categorie"),
+              ),
+              TextField(
+                decoration: InputDecoration(hintText: "Enter task importants"),
+              ),
+            ],
           ),
+
           actions: [
             TextButton(
               onPressed: () {
@@ -97,7 +117,7 @@ class Homescreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Add Task"),
+              child: Text("save"),
             ),
           ],
         );
